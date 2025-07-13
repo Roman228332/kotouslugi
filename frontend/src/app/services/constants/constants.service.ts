@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { EBreedMap, ESexMap, IValueBreed, IValueSex, IValueCat, ICatGroupedBySex } from '@models/cat.model';
 import { mergeMap, Observable, of, take } from 'rxjs';
 import { CatService } from '@services/cat/cat.service';
-import { IValue } from '@models/common.model';
+import { IValue } from '@models/common.model'; // Твой интерфейс IValue
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ConstantsService {
   // варианты пола
   public sexOptions: IValueSex[] = [
     {
-      id: 'male',
+      id: 'male', // У этого свой тип IValueSex, где id может быть строкой. Это нормально.
       text: ESexMap.male
     },
     {
@@ -26,7 +26,7 @@ export class ConstantsService {
   // варианты пород
   public breedOptions: IValueBreed[] = [
     {
-      id: 'siamese',
+      id: 'siamese', // У этого свой тип IValueBreed, где id может быть строкой. Это нормально.
       text: EBreedMap.siamese
     },
     {
@@ -59,7 +59,7 @@ export class ConstantsService {
     }
   ];
 
-  // варианты специалистов
+  // варианты специалистов (используют IValue, id: number)
   public doctorOptions: IValue[] = [
     {
       id: 0,
@@ -83,10 +83,10 @@ export class ConstantsService {
     }
   ];
 
-  // 👇 Добавляем варианты магазинов для заказа еды
+  // Варианты магазинов для заказа еды (используют IValue, id: number)
   public shopOptions: IValue[] = [
     {
-      id: 0, // Или используй строковые ID, если так удобнее для бэкенда (например, 'pet_store_1')
+      id: 0,
       text: 'Зоомагазин "КотБатон"'
     },
     {
@@ -101,6 +101,37 @@ export class ConstantsService {
       id: 3,
       text: 'Местный ларек у Мурки'
     }
+  ];
+
+  // Варианты типов доставки (используют IValue, id: number)
+  public deliveryTypeOptions: IValue[] = [
+    { id: 0, text: 'Доставка' },
+    { id: 1, text: 'Самовывоз' }
+  ];
+
+  // Варианты продуктов (для мультивыбора) (используют IValue, id: number)
+  public productOptions: IValue[] = [
+    { id: 0, text: 'Сухой корм для взрослых' },
+    { id: 1, text: 'Влажный корм для котят' },
+    { id: 2, text: 'Лакомства для зубов' },
+    { id: 3, text: 'Кошачья мята (спрей)' },
+    { id: 4, text: 'Наполнитель комкующийся' },
+    { id: 5, text: 'Игрушка-лазер' }
+  ];
+
+  // Варианты городов (используют IValue, id: number)
+  public cityOptions: IValue[] = [
+    { id: 0, text: 'Ереван' },
+    { id: 1, text: 'Гюмри' },
+    { id: 2, text: 'Ванадзор' }
+  ];
+
+  // Варианты улиц (используют IValue, id: number)
+  public streetOptions: IValue[] = [
+    { id: 0, text: 'Туманяна' },
+    { id: 1, text: 'Маштоца' },
+    { id: 2, text: 'Сарьяна' },
+    { id: 3, text: 'Кохбаци' }
   ];
 
   constructor(

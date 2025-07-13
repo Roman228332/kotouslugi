@@ -64,19 +64,30 @@ export class ServiceInfoService {
     const arr: Array<IPreview[]> = [];
 
     Object.keys(rawValue).forEach((step, index) => {
-      if (rawValue[step]) {
-        const stepArr: any[] = [{title: steps[index].title}];
+      // ИЗМЕНЕНИЕ ЗДЕСЬ: Проверяем, не является ли это последним шагом
+      // (который предназначен только для проверки и не содержит полей для заполнения)
+      if (rawValue[step] && index < steps.length - 1) { // <-- ДОБАВЛЕНО: && index < steps.length - 1
+        const stepArr: any[] = [{title: steps[index].title}]; // Здесь теперь используется 'title' из food.json
 
         Object.keys(rawValue[step]).forEach((key) => {
           let value = rawValue[step][key];
 
-          if (key === 'date') {
+          if (key === 'date' || key === 'deliveryDate') { // Добавляем 'deliveryDate' для форматирования даты
             value = new Date(rawValue[step][key]).toLocaleDateString('ru-RU', {
               year: 'numeric',
               month: '2-digit',
               day: '2-digit',
             });
-          } else {
+          } else if (Array.isArray(value)) { // Обработка мультивыбора (продуктов)
+            value = value.map(item => {
+              try {
+                return JSON.parse(item)?.text || item;
+              } catch (error) {
+                return item;
+              }
+            }).join(', '); // Объединяем выбранные элементы в строку
+          }
+          else {
             try {
               value = JSON.parse(value)?.text || value;
             } catch (error) {}

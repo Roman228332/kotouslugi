@@ -1,3 +1,5 @@
+// C:\Users\Admin1\Downloads\kotuslugi\kotouslugi-2025-summer-team-cheremsha\frontend\src\app\modules\service\components\vet\constants.service.ts
+
 import { Injectable } from '@angular/core';
 import { EBreedMap, ESexMap, IValueBreed, IValueSex, IValueCat, ICatGroupedBySex } from '@models/cat.model';
 import { mergeMap, Observable, of, take } from 'rxjs';
@@ -78,6 +80,26 @@ export class ConstantsService {
     {
       id: 4,
       text: 'Дерматолог'
+    }
+  ];
+
+  // 👇 Добавляем варианты магазинов для заказа еды
+  public shopOptions: IValue[] = [
+    {
+      id: 0, // Или используй строковые ID, если так удобнее для бэкенда (например, 'pet_store_1')
+      text: 'Зоомагазин "КотБатон"'
+    },
+    {
+      id: 1,
+      text: 'Супермаркет "Пушистик"'
+    },
+    {
+      id: 2,
+      text: 'Интернет-магазин "МурМурФуд"'
+    },
+    {
+      id: 3,
+      text: 'Местный ларек у Мурки'
     }
   ];
 

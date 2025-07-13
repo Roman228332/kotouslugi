@@ -1,0 +1,99 @@
+@if (loading) {
+  <app-throbber></app-throbber>
+    } @else {
+  <div class="fields-wrapper" [formGroup]="form">
+    <div class="field-wrapper" [hidden]="active !== 0" formGroupName="0">
+    <div class="field">
+    <div>
+    <p class="label">Выберите кота</p>
+    @if (getControl(0, 'cat').errors?.['required'] && getControl(0, 'cat').touched) {
+  <p class="error">Поле обязательно для заполнения</p>
+  }
+  </div>
+  <select formControlName="cat" (invalid)="getControl(0, 'cat').invalid">
+@for (option of optionsCat; track $index) {
+<option [value]="getItem('cat', $index)">{{option.text}}</option>
+}
+</select>
+</div>
+<div class="field">
+<div>
+<p class="label">Телефон для связи</p>
+@if (getControl(0, 'telephone').errors && getControl(0, 'telephone').touched) {
+@if (getControl(0, 'telephone').errors?.['required']) {
+<p class="error">Поле обязательно для заполнения</p>
+}
+@if (getControl(0, 'telephone').errors?.['pattern']) {
+<p class="error">Введите 11 цифр</p>
+}
+}
+</div>
+<input formControlName="telephone" placeholder="12345678901"
+(invalid)="getControl(0, 'telephone').invalid">
+</div>
+<div class="field">
+<div>
+<p class="label">Email для связи</p>
+@if (getControl(0, 'email').errors?.['pattern'] && getControl(0, 'email').touched) {
+<p class="error">Некорректный Email</p>
+}
+</div>
+<input formControlName="email" type="email" placeholder="abc@dfg.ru"
+(invalid)="getControl(0, 'email').invalid">
+</div>
+</div>
+
+<div class="field-wrapper" [hidden]="active !== 1" formGroupName="1">
+<div class="field">
+<div>
+<p class="label">Продукты</p>
+@if (getControl(1, 'products').errors?.['required'] && getControl(1, 'products').touched) {
+<p class="error">Поле обязательно для заполнения</p>
+}
+</div>
+<textarea formControlName="products" placeholder="Например: корм для котят, консервы с тунцом"
+(invalid)="getControl(1, 'products').invalid"></textarea>
+</div>
+<div class="field">
+<div>
+<p class="label">Магазин</p>
+@if (getControl(1, 'shop').errors?.['required'] && getControl(1, 'shop').touched) {
+<p class="error">Поле обязательно для заполнения</p>
+}
+</div>
+<select formControlName="shop" (invalid)="getControl(1, 'shop').invalid">
+@for (shop of shopOptions; track $index) {
+<option [value]="getItem('shop', $index)">{{shop.text}}</option>
+}
+</select>
+</div>
+<div class="field">
+<div>
+<p class="label">Время доставки</p>
+@if (getControl(1, 'deliveryTime').errors?.['required'] && getControl(1, 'deliveryTime').touched) {
+<p class="error">Поле обязательно для заполнения</p>
+}
+</div>
+<input formControlName="deliveryTime" type="time" list="delivery_time_list" (invalid)="getControl(1, 'deliveryTime').invalid">
+<datalist id="delivery_time_list">
+<option value="09:00">
+<option value="10:00">
+<option value="11:00">
+<option value="12:00">
+<option value="13:00">
+<option value="14:00">
+<option value="15:00">
+<option value="16:00">
+<option value="17:00">
+<option value="18:00">
+<option value="19:00">
+<option value="20:00">
+</datalist>
+</div>
+</div>
+
+@if (active === 2) {
+<app-check-info [data]="getResult"></app-check-info>
+}
+</div>
+}
